@@ -1,10 +1,12 @@
+private const val DAY = "day1"
+
 fun main() {
-    println("Welcome to Advent of Code 🎄✨🎅🏻")
+    println("Welcome to Advent of Code $DAY 🎄✨🎅🏻")
 
     val elvesAndSnacks = mutableListOf<Int>()
 
     val currentCalories = mutableListOf<Int>()
-    readInput("day1")
+    readInput(DAY)
         .map { it.toIntOrNull() }
         .forEach {
             if (it == null) {
@@ -14,6 +16,8 @@ fun main() {
                 currentCalories += it
             }
         }
-    val result = elvesAndSnacks.max()
-    println(result)
+    val resultPart1 = elvesAndSnacks.max()
+    val resultPart2 = elvesAndSnacks.sorted().takeLast(3).sum()
+    println("Part 1 result $resultPart1")
+    println("Part 2 result $resultPart2")
 }
