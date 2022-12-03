@@ -1,34 +1,36 @@
-private const val DAY = "day2"
-
 fun main() {
-    println("Welcome to Advent of Code $DAY 🎄✨🎅🏻")
+    Day2.run()
+}
 
-    readInput("day2")
-        .map { it.split(" ") }
-        .foldIndexed(0) { index: Int, total: Int, step: List<String> ->
-            println("================")
-            println("Round ${index + 1}")
+object Day2 : Solution<List<List<String>>> {
+    override val day = "day2"
+    override val parser = Parser { readInput(day).map { it.split(" ") } }
 
+    override fun part1(input: List<List<String>>): Int {
+        return input.foldIndexed(0) { _: Int, total: Int, step: List<String> ->
+            val yourRoundScore =
+                step.map { it.toShapeScore() }
+                    .let { (opponentScore, yourScore) ->
+                        playRound(yourScore, opponentScore)
+                    }
+
+            total + yourRoundScore
+        }
+    }
+
+    override fun part2(input: List<List<String>>): Int {
+        return input.foldIndexed(0) { _: Int, total: Int, step: List<String> ->
             val opponentTurn = step.first()
             val yourTurn = makeChoseForMark(step.last(), opponentTurn)
-
-            println("You play: $yourTurn ${yourTurn.toShapeName()}")
-            println("Opponent plays: $opponentTurn ${opponentTurn.toShapeName()}")
 
             val opponentScore = opponentTurn.toShapeScore()
             val yourShapeScore = yourTurn.toShapeScore()
 
-            println("Shape score: $yourShapeScore")
-
             val yourRoundScore = playRound(yourShapeScore, opponentScore)
-
-            println("Round score: $yourRoundScore")
 
             total + yourRoundScore
         }
-        .also {
-            println("Your total result: $it")
-        }
+    }
 }
 
 /**
