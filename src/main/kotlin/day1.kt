@@ -1,4 +1,4 @@
-class Day1 : Solution {
+class Day1 : Solution<List<Int>> {
     override val day: String = "day1"
 
     override fun run() {
@@ -20,6 +20,14 @@ class Day1 : Solution {
         println("Part 1 result $resultPart1")
         println("Part 2 result $resultPart2")
 
+    }
+
+    override fun part1(input: List<Int>): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun part2(input: List<Int>): Int {
+        TODO("Not yet implemented")
     }
 }
 
