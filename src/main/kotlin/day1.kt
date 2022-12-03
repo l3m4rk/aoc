@@ -1,7 +1,7 @@
-class Day1 : Solution<List<Int>> {
-    override val day: String = "day1"
+class Day1 {
+    private val day: String = "day1"
 
-    override fun run() {
+    fun run() {
         val elvesAndSnacks = mutableListOf<Int>()
 
         val currentCalories = mutableListOf<Int>()
@@ -20,14 +20,6 @@ class Day1 : Solution<List<Int>> {
         println("Part 1 result $resultPart1")
         println("Part 2 result $resultPart2")
 
-    }
-
-    override fun part1(input: List<Int>): Int {
-        TODO("Not yet implemented")
-    }
-
-    override fun part2(input: List<Int>): Int {
-        TODO("Not yet implemented")
     }
 }
 

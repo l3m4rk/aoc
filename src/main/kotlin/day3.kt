@@ -4,20 +4,9 @@ fun main() {
 
 object Day3 : Solution<List<String>> {
     override val day: String = "day3"
+    override val parser: Parser<List<String>> = Parser.strings(day)
 
     private const val priorities = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-    override fun run() {
-        super.run()
-
-        readInput(day)
-            .also { input ->
-                val result1 = part1(input)
-                println("part 1 result: $result1")
-                val result2 = part2(input)
-                println("part 2 result: $result2")
-            }
-    }
 
     override fun part1(input: List<String>): Int =
         input.fold(0) { sumOfPriorities: Int, rucksack: String ->
