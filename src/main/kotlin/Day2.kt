@@ -8,20 +8,73 @@ fun main() {
         .foldIndexed(0) { index: Int, total: Int, step: List<String> ->
             println("================")
             println("Round ${index + 1}")
+
             val opponentTurn = step.first()
-            val yourTurn = step.last()
+            val yourTurn = makeChoseForMark(step.last(), opponentTurn)
+
             println("You play: $yourTurn ${yourTurn.toShapeName()}")
             println("Opponent plays: $opponentTurn ${opponentTurn.toShapeName()}")
+
             val opponentScore = opponentTurn.toShapeScore()
             val yourShapeScore = yourTurn.toShapeScore()
+
             println("Shape score: $yourShapeScore")
+
             val yourRoundScore = playRound(yourShapeScore, opponentScore)
+
             println("Round score: $yourRoundScore")
+
             total + yourRoundScore
         }
         .also {
             println("Your total result: $it")
         }
+}
+
+/**
+ * New rules
+ * Y – draw
+ * X - lose
+ * Z - win
+ */
+// X - Rock 1
+// Y – Paper 2
+// Z - Scissors 3
+// Opponent
+// A – Rock 1
+// B - Paper 2
+// C – Scissors 3
+private fun makeChoseForMark(mark: String, otherTurn: String): String {
+    return when (mark) {
+        "X" -> {
+            when (otherTurn) {
+                "A" -> "Z"
+                "B" -> "X"
+                "C" -> "Y"
+                else -> throw IllegalStateException()
+            }
+        }
+
+        "Y" -> {
+            when (otherTurn) {
+                "A" -> "X"
+                "B" -> "Y"
+                "C" -> "Z"
+                else -> throw IllegalStateException()
+            }
+        }
+
+        "Z" -> {
+            when (otherTurn) {
+                "A" -> "Y"
+                "B" -> "Z"
+                "C" -> "X"
+                else -> throw IllegalStateException()
+            }
+        }
+
+        else -> throw IllegalStateException()
+    }
 }
 
 /**
