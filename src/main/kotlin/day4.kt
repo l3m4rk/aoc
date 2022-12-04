@@ -16,32 +16,37 @@ fun fullyOverlap(r1: Range, r2: Range): Boolean {
             (r2.contains(r1.start) && r2.contains(r1.end))
 }
 
-object Day4 : Solution<List<String>> {
-    override val day: String = "day4"
-    override val parser = Parser { readInput(day) }
+fun overlapAtAll(r1: Range, r2: Range): Boolean {
+    return r1.contains(r2.start) || r1.contains(r2.end) ||
+            r2.contains(r1.start) || r2.contains(r1.end)
+}
 
-    override fun part1(input: List<String>): Int {
-        return input
-            .map { line ->
-                line.split(",")
-                    .let { (first, second) ->
-                        val (firstStart, firstEnd) = first.split("-").map { it.toInt() }
-                        val first = Range(firstStart, firstEnd)
-                        val (secondStart, secondEnd) = second.split("-").map { it.toInt() }
-                        val second = Range(secondStart, secondEnd)
-                        Pair(first, second)
-                    }
-            } // TODO extract parsing
-            .fold(0) { fullyContainedIntervals: Int, (r1, r2): Pair<Range, Range> ->
-                fullyContainedIntervals + when {
-                    fullyOverlap(r1, r2) -> 1
-                    else -> 0
+object Day4 : Solution<List<Pair<Range, Range>>> {
+    override val day: String = "day4"
+    override val parser = Parser {
+        readInput(day).map { line ->
+            line.split(",")
+                .let { (first, second) ->
+                    val (firstStart, firstEnd) = first.split("-").map { it.toInt() }
+                    val (secondStart, secondEnd) = second.split("-").map { it.toInt() }
+                    Pair(Range(firstStart, firstEnd), Range(secondStart, secondEnd))
                 }
-            }
+        }
     }
 
-    override fun part2(input: List<String>): Int {
-        return 0 // TODO
+    override fun part1(input: List<Pair<Range, Range>>): Int {
+        return input.fold(0) { fullyContainedIntervals: Int, (r1, r2): Pair<Range, Range> ->
+            fullyContainedIntervals + when {
+                fullyOverlap(r1, r2) -> 1
+                else -> 0
+            }
+        }
+    }
+
+    override fun part2(input: List<Pair<Range, Range>>): Int {
+        return input.fold(0) { overlappedAtAll: Int, (r1, r2) ->
+            overlappedAtAll + if (overlapAtAll(r1, r2)) 1 else 0
+        }
     }
 
 }
