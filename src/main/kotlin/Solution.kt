@@ -1,3 +1,5 @@
+import kotlin.system.measureTimeMillis
+
 interface Solution<T> {
     val day: String
 
@@ -8,8 +10,11 @@ interface Solution<T> {
 
         parser.parse(readInput(day))
             .also { input ->
-                val result1 = part1(input)
-                println("Part 1 result: $result1")
+                val result1: Int
+                val elapsed = measureTimeMillis {
+                    result1 = part1(input)
+                }
+                println("Part 1 result: $result1, in $elapsed milliseconds")
                 val result2 = part2(input)
                 println("Part 2 result: $result2")
             }
