@@ -1,15 +1,5 @@
 fun main() {
     Day6.run()
-    // TODO: remove tests from here
-    listOf(
-        "mjqjpqmgbljsphdztnvjfqwrcgsmlb" to 7,
-        "bvwbjplbgvbhsrlpgdmjqwftvncz" to 5,
-        "nppdvjthqldpwncqszvftbrmjlhg" to 6,
-        "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg" to 10,
-        "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw" to 11,
-    ).forEach { (testInput, expectedResult) ->
-        assert(Day6.part1(testInput) == expectedResult)
-    }
 }
 
 object Day6 : Solution<String> {
@@ -24,18 +14,19 @@ object Day6 : Solution<String> {
         return true
     }
 
+    // start-of-packet marker
     override fun part1(input: String): Int {
         return input
             .windowed(4)
             .first { it.isMarker() }
-            .let { marker ->
-                val index = input.indexOf(marker) + marker.length
-                println("marker $marker with index $index")
-                index
-            }
+            .let { marker -> input.indexOf(marker) + marker.length }
     }
 
+    // start-of-message marker
     override fun part2(input: String): Int {
-        return 0 // TODO: part 2
+        return input
+            .windowed(14)
+            .first { it.isMarker() }
+            .let { marker -> input.indexOf(marker) + marker.length }
     }
 }
