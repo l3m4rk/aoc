@@ -4,7 +4,7 @@ fun main() {
 
 object Day6 : Solution<String> {
     override val day = "day6"
-    override val parser: Parser<String> = Parser { readInput(day).first() }
+    override val parser: Parser<String> = Parser.line(day)
 
     // too bad it's O(n2)
     private fun String.isMarker(): Boolean {
