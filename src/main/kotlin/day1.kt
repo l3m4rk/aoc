@@ -11,7 +11,7 @@ object Day1 : Solution<List<List<String>>> {
     }
 
     // TODO: consider moving to utils and generalize
-    private fun List<String>.splitByEmpty(): List<List<String>> {
+    fun List<String>.splitByEmpty(): List<List<String>> {
         val result = mutableListOf<MutableList<String>>()
         var current = mutableListOf<String>()
         for (s in this) {

@@ -1,5 +1,6 @@
 import kotlin.system.measureTimeMillis
 
+// TODO(refactor): add In, Out types to support different type of results
 interface Solution<T> {
     val day: String
 
