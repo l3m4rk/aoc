@@ -16,4 +16,18 @@ class Day6Test {
             assertSame(expectedResult, Day6.part1(testInput))
         }
     }
+
+    @Test
+    fun testPart2() {
+        // test start-of-message marker
+        listOf(
+            "mjqjpqmgbljsphdztnvjfqwrcgsmlb" to 19,
+            "bvwbjplbgvbhsrlpgdmjqwftvncz" to 23,
+            "nppdvjthqldpwncqszvftbrmjlhg" to 23,
+            "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg" to 29,
+            "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw" to 26,
+        ).forEach { (testInput, expectedResult) ->
+            assertSame(expectedResult, Day6.part2(testInput))
+        }
+    }
 }
