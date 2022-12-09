@@ -4,22 +4,12 @@ fun main() {
 
 object Day8 : Solution<List<List<Int>>> {
     override val day = "day8"
-    override val parser = Parser {
-        readInput(day)
-            .fold(mutableListOf()) { grid: MutableList<List<Int>>, line: String ->
-                grid.apply {
-                    add(line.toCharArray().map { it.digitToInt() })
-                }
-            }.toList()
-    }
+    override val parser = Parser { readInput(day).map { it.map { it.digitToInt() } } }
 
     override fun part1(input: List<List<Int>>): Int {
-        return input
-            .let { grid ->
-                val visibleTreesEdge = grid.size * 2 + grid[0].size * 2 - 4
-                val visibleTreesInside = countTreesVisibleInside(grid)
-                visibleTreesEdge + visibleTreesInside
-            }
+        val visibleTreesEdge = input.size * 2 + input[0].size * 2 - 4
+        val visibleTreesInside = countTreesVisibleInside(input)
+        return visibleTreesEdge + visibleTreesInside
     }
 
     private fun countTreesVisibleInside(grid: List<List<Int>>): Int {
@@ -124,22 +114,11 @@ object Day8 : Solution<List<List<Int>>> {
                 }
                 if (down == 0) down = 1
 
-                // debug
-//                if ((i == 1 && j == 2) || (i == 3 && j == 2)) {
-//                    println("($i,$j): up $up left $left down $down right $right")
-//                }
-
                 val scenicScore = up * down * left * right
                 scenicScores += scenicScore
                 trees += Tree(i, j, treeHeight, scenicScore)
             }
         }
-        //debug =]
-//        trees.chunked(grid.size)
-//            .also {
-//                println("first score ${it[1][2]}")
-//                println("second score ${it[3][2]}")
-//            }
         return scenicScores.max()
     }
 
