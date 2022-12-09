@@ -76,21 +76,19 @@ object Day8 : Solution<List<List<Int>>> {
         val height: Int,
         val scenicScore: Int
     )
+
     private fun countTreesScenicScore(grid: List<List<Int>>): Int {
         val scenicScores = mutableListOf<Int>()
         val trees = mutableListOf<Tree>()
-        for (i in 0 .. grid.lastIndex) {
-            for (j in 0 .. grid[i].lastIndex) {
+        for (i in 0..grid.lastIndex) {
+            for (j in 0..grid[i].lastIndex) {
                 val treeHeight = grid[i][j]
 
                 //left 0 to j - 1, i = const
                 var left = 0
-                for (k in j - 1 downTo  0) {
-                    if (grid[i][k] < treeHeight) {
-                        left++
-                    }
+                for (k in j - 1 downTo 0) {
+                    left++
                     if (grid[i][k] >= treeHeight) {
-                        left++
                         break
                     }
                 }
@@ -99,11 +97,8 @@ object Day8 : Solution<List<List<Int>>> {
                 // right j + 1 .. grid[i].lastIndex, i = const
                 var right = 0
                 for (k in j + 1..grid[i].lastIndex) {
-                    if (grid[i][k] < treeHeight) {
-                        right++
-                    }
+                    right++
                     if (grid[i][k] >= treeHeight) {
-                        right++
                         break
                     }
                 }
@@ -112,11 +107,8 @@ object Day8 : Solution<List<List<Int>>> {
                 // up i: from i - 1 to 0 j = const
                 var up = 0
                 for (k in i - 1 downTo 0) {
-                    if (grid[k][j] < treeHeight) {
-                        up++
-                    }
+                    up++
                     if ((grid[k][j] >= treeHeight)) {
-                        up++
                         break
                     }
                 }
@@ -125,11 +117,8 @@ object Day8 : Solution<List<List<Int>>> {
                 // bottom i + 1 .. grid.lastIndex , j = const
                 var down = 0
                 for (k in i + 1..grid.lastIndex) {
-                    if (grid[k][j] < treeHeight) {
-                        down++
-                    }
+                    down++
                     if (grid[k][j] >= treeHeight) {
-                        down++
                         break
                     }
                 }
@@ -156,15 +145,5 @@ object Day8 : Solution<List<List<Int>>> {
 
     override fun part2(input: List<List<Int>>): Int {
         return countTreesScenicScore(input)
-    }
-}
-
-// TODO: generalize and move to utils
-fun printGrid(grid: MutableList<MutableList<Int>>) {
-    for (i in grid.indices) {
-        for (j in grid[i].indices) {
-            print("${grid[i][j]} ")
-        }
-        println()
     }
 }
