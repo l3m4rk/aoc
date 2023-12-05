@@ -1,3 +1,9 @@
+package year2022
+
+import Parser
+import Solution
+import readInput
+
 fun main() {
     Day1.run()
 }

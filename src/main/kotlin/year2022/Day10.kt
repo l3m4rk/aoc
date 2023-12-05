@@ -1,3 +1,8 @@
+package year2022
+
+import Parser
+import Solution
+
 fun main() {
     Day10.run()
 }

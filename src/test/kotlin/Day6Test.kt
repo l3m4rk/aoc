@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test
+import year2022.Day6
 import kotlin.test.assertSame
 
 class Day6Test {

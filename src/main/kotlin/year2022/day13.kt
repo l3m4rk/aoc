@@ -1,4 +1,8 @@
-import Day1.splitByEmpty
+package year2022
+
+import Parser
+import Solution
+import year2022.Day1.splitByEmpty
 import kotlin.math.min
 
 fun main() {

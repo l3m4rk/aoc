@@ -1,3 +1,7 @@
+package year2022
+
+import Parser
+import Solution
 import java.util.LinkedList
 
 fun main() {

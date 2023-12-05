@@ -1,3 +1,8 @@
+package year2022
+
+import Solution
+import readInput
+
 fun main() {
     Day8.run()
 }
