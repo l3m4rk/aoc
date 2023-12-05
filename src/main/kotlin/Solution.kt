@@ -4,10 +4,13 @@ import kotlin.system.measureTimeMillis
 interface Solution<T> {
     val day: String
 
+    val year: String
+        get() = "2022"
+
     val parser: Parser<T>
 
     fun run() {
-        println("Welcome to Advent of Code 2022 $day 🎄✨🎅🏻")
+        println("Welcome to Advent of Code $year $day 🎄✨🎅🏻")
 
         parser.parse(readInput(day))
             .also { input ->
