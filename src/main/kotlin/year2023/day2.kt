@@ -41,11 +41,11 @@ object Day2 : Solution<List<String>> {
     private fun parseGame(gameInput: String): Game {
         val cubeSets = mutableListOf<CubeSet>()
         val gameId = gameInput.substringBefore(':').split(" ")[1].toInt()
-        println("gameId: $gameId")
+//        println("gameId: $gameId")
         val sets = gameInput.substringAfter(":").split(';')
-        println("sets: $sets")
+//        println("sets: $sets")
         cubeSets += sets.map(::parseSet)
-        println("cube sets: $cubeSets")
+//        println("cube sets: $cubeSets")
         val isPossible = cubeSets.all { it.isPossible() }
         return Game(gameId, cubeSets, isPossible)
     }
@@ -77,7 +77,18 @@ object Day2 : Solution<List<String>> {
     }
 
     override fun part2(input: List<String>): Int {
-        return -1
+        return input
+            .map(::parseGame)
+            .sumOf { power(it) }
+            .toInt()
+            .also(::println)
+    }
+
+    private fun power(it: Game): UInt {
+        val blue = it.cubeSets.maxBy { it.blue }.blue
+        val red = it.cubeSets.maxBy { it.red }.red
+        val green = it.cubeSets.maxBy { it.green }.green
+        return blue * red * green
     }
 
 }
