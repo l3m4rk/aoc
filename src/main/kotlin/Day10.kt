@@ -3,7 +3,7 @@ fun main() {
 }
 
 object Day10 : Solution<List<String>> {
-    override val day: String = "day10"
+    override val day: String = "day10_test"
     override val parser = Parser.strings(day)
 
     private const val ADD = "addx"
@@ -16,10 +16,12 @@ object Day10 : Solution<List<String>> {
     sealed interface Command {
 
         val cycles: Int
+
         data class Add(
             val n: Int,
             override val cycles: Int = ADD_CYCLES
         ) : Command
+
         object Noop : Command {
             override val cycles: Int = NOOP_CYCLES
         }
@@ -40,11 +42,11 @@ object Day10 : Solution<List<String>> {
         }
     }
 
-    private var registerX = 1
-    private var currentCycle: Int = 0
-    private var resultSignal = 0
-
     override fun part1(input: List<String>): Int {
+        var registerX = 1
+        var currentCycle: Int = 0
+        var resultSignal = 0
+
         return input
             .parseCommands()
 //            .also { println(it) }
@@ -61,6 +63,7 @@ object Day10 : Solution<List<String>> {
                         }
                         registerX += command.n
                     }
+
                     Command.Noop -> {
                         currentCycle++
                         if (currentCycle in cyclesForSignal) {
@@ -74,7 +77,77 @@ object Day10 : Solution<List<String>> {
             }
     }
 
+    private const val lit = '#'
+    private const val dark = '.'
+    private val CRT = Array(6) { CharArray(40) { dark } }
+
+    private fun showCRT() {
+        repeat(6) { row ->
+            repeat(40) { column ->
+                print(CRT[row][column])
+            }
+            println()
+        }
+    }
     override fun part2(input: List<String>): Int {
-        return -1
+        var registerX = 1
+        var currentCycle = 0
+
+        val rows = 6
+        val columns = 40
+
+        val memory = CharArray(240)
+        return input
+            .parseCommands()
+            .forEachIndexed { i, command ->
+                if (i == 1) {
+                    println("index $i command $command")
+                    return@forEachIndexed
+                }
+//                println("$command ===========")
+                when (command) {
+                    is Command.Add -> {
+                        //draw pixel
+                        var i = currentCycle / columns
+                        var j = currentCycle % columns
+//                        CRT[i][j] = lit
+                        currentCycle++
+                        memory[currentCycle - 1] = lit
+
+                        //draw pixel
+                        i = currentCycle / columns
+                        j = currentCycle % columns
+//                        CRT[i][j] = lit
+                        currentCycle++
+                        memory[currentCycle - 1] = lit
+
+
+                        i = currentCycle / columns
+                        j = currentCycle % columns
+//                        CRT[i][j] = lit
+                        memory[currentCycle] = lit
+
+                        registerX += command.n
+                        if (memory[currentCycle - 1] == memory[currentCycle - 2] &&
+                            memory[currentCycle - 1] == memory[currentCycle]) {
+                            CRT[i][registerX] = lit
+                        } else {
+                            CRT[i][registerX] = dark
+                        }
+
+                        // debug remove
+                        if (currentCycle in 0..4) {
+                            showCRT()
+                        }
+                    }
+                    Command.Noop -> {
+                        currentCycle++
+                    }
+                }
+            }
+//            .also { showCRT() }
+            .let {
+                -1
+            }
     }
 }
