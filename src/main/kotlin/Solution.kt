@@ -12,7 +12,7 @@ interface Solution<T> {
     fun run() {
         println("Welcome to Advent of Code $year $day 🎄✨🎅🏻")
 
-        parser.parse(readInput(day))
+        parser.parse(readInput(day, year))
             .also { input ->
                 val result1: Int
                 val elapsed1 = measureTimeMillis {

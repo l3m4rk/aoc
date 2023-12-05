@@ -1,7 +1,8 @@
 import java.io.File
 
-internal fun readInput(name: String): List<String> {
-    return File("src/main/resources/$name.txt")
+internal fun readInput(name: String, year: String? = null): List<String> {
+    val path = if (year == null) "src/main/resources/$name.txt" else "src/main/resources/$year/$name.txt"
+    return File(path)
         .readLines()
 }
 

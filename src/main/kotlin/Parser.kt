@@ -4,7 +4,7 @@ fun interface Parser<T> {
 
     companion object {
         fun line(name: String): Parser<String> = Parser { readInput(name).first() }
-        fun strings(name: String): Parser<List<String>> = Parser { readInput(name) }
+        fun strings(name: String, year: String? = null): Parser<List<String>> = Parser { readInput(name, year) }
         fun ints(name: String): Parser<List<Int>> = Parser { readInput(name).map { it.toInt() } }
     }
 }
